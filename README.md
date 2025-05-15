@@ -1,6 +1,3 @@
-Certainly! Here's a cleaner and more concise version of your `README.md` that remains professional and impactful:
-
-````markdown
 # 📊 Google Search Sentiment & Market Volatility
 
 This repository contains the code, data processing pipeline, and visualizations for our research on using Google search trends as an early-warning signal for financial market volatility (VIX spikes).
@@ -67,5 +64,4 @@ Texas Tech University
 
 > *“Search behavior may be noisy — but in chaos lies signal.”*
 
-```
 
