@@ -81,7 +81,7 @@ MIT License.
 
 **Gagan Deep, Akash Deep**
 Texas Tech University
-📧 [deep@ttu.edu](mailto:deep@ttu.edu)
+📧 [gdeep@ttu.edu](mailto:gdeep@ttu.edu)
 🌐 [deepaifinance.com](https://deepaifinance.com)
 
 > *“Search behavior may be noisy — but in chaos lies signal.”*
