@@ -1,88 +1,98 @@
-# 📊 Google Search Sentiment & Market Volatility
+# GT-XGBoost: Google Trends-Augmented XGBoost for Market Volatility Prediction
 
-This repository contains the code, data processing pipeline, and visualizations for our research on using Google search trends as an early-warning signal for financial market volatility (VIX spikes).
+[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
----
+## Overview
 
-## 🔍 Overview
+This repository contains the implementation for **"Google Trends–Augmented XGBoost for Market Volatility Prediction: A Machine–Learning Early-Warning System"**. GT-XGBoost integrates behavioral sentiment indicators from Google search data with traditional volatility measures to predict VIX spikes with superior performance compared to established academic benchmarks.
 
-We study how public search behavior — particularly terms like “Recession”, “Financial Crisis”, and “Market Crash” — correlates with and often precedes spikes in market volatility.
+**Key Results**: ROC AUC of 0.796, ranking #1 among 8 academic benchmarks with 65.4% precision and 58.6% recall for 1-month ahead VIX spike prediction.
 
-Using:
-- Google Trends data (2004–2025)
-- VIX index data (2000–2024)
-- Gold price data for safe-haven analysis
-
-We build:
-- A composite sentiment index (via PCA)
-- A feature-rich dataset with rate-of-change and anomaly scores
-- A machine learning model (XGBoost) to forecast VIX spikes
-- A scoring-based **Early Warning System**
-
----
-
-## 📈 Key Results
-
-- **3.1× lift** in predicting VIX spikes within 1 month using sentiment anomalies
-- Top terms (“Recession”, “Financial Crisis”) show **r > 0.65** correlation with VIX
-- Gold prices tend to rise during peak fear periods
-- Early-warning system achieved:
-  - ROC AUC: **0.825**
-  - F1 Score: **0.618**
-
----
-
-## 🧠 Tech Stack
-
-- **Language:** Python 3.8+
-- **Notebook Interface:** Jupyter Notebooks
-- **Libraries:**
-  - `pandas`, `numpy` — data manipulation
-  - `matplotlib`, `seaborn` — visualization
-  - `scikit-learn` — preprocessing, metrics, PCA
-  - `xgboost` — model training
-  - `scipy.stats` — statistical transformations
-  - `warnings`, `datetime` — utilities for clean analysis
-
----
-
-## 📦 Dependencies & Installation
-
-Install all required packages using:
+## Installation
 
 ```bash
+git clone https://github.com/yourusername/GT-XGBoost.git
+cd GT-XGBoost
 pip install -r requirements.txt
-````
-
-Minimal `requirements.txt`:
-
-```txt
-pandas>=1.3.0
-numpy>=1.21
-matplotlib>=3.4
-seaborn>=0.11
-scikit-learn>=0.24
-xgboost>=1.5
-scipy>=1.7
-jupyter
 ```
 
+## Quick Start
+
+```python
+from gt_xgboost import GTXGBoostPredictor
+import pandas as pd
+
+# Load data
+vix_data = pd.read_csv('data/vix_data.csv')
+trends_data = pd.read_csv('data/google_trends.csv')
+
+# Train model
+predictor = GTXGBoostPredictor(vix_threshold=30, random_state=42)
+predictor.fit(vix_data, trends_data)
+
+# Generate predictions
+predictions = predictor.predict_volatility_spikes(horizon_months=1)
+print(f"Warning level: {predictions['warning_level']}")
+```
+
+
+
+## Methodology
+
+GT-XGBoost combines:
+- **Behavioral Features**: Google Trends momentum, acceleration, and composite sentiment indices
+- **Technical Features**: VIX momentum, rolling statistics, and technical indicators  
+- **Hybrid Integration**: Cross-modal interaction terms and risk scoring systems
+
+**Target**: VIX ≥ 30 spikes with 1-3 month prediction horizons
+
+## Benchmark Results
+
+| Model | ROC AUC | Model Type |
+|-------|---------|------------|
+| **GT-XGBoost** | **0.796** | **Behavioral ML** |
+| Persistence | 0.788 | Traditional |
+| Realized Volatility | 0.745 | Financial Engineering |
+| Heston-inspired SV | 0.733 | Stochastic Volatility |
+| GARCH(1,1) | 0.651 | Classical Econometric |
+
+## Replication
+
+```bash
+# Download data
+python scripts/download_data.py --start-date 2004-01-01 --end-date 2024-12-31
+
+# Train model
+python scripts/train_model.py --config configs/optimal_params.yaml
+
+# Run benchmarks
+python scripts/benchmark_comparison.py --output results/benchmark_results.csv
+```
+
+## Data Sources
+
+- **VIX**: CBOE Volatility Index (2000-2024)
+- **Google Trends**: Search volumes for "recession", "financial crisis", "volatility", "stock market crash" (2004-2024)
+- **Gold Futures**: CME data for economic validation (2001-2020)
+
+## Requirements
+
+```
+pandas>=2.2.0
+numpy>=1.26.0
+scikit-learn>=1.5.0
+xgboost>=2.0.0
+arch>=7.2.0
+matplotlib>=3.7.0
+```
+
+
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 ---
 
-
-
-## 📄 License
-
-MIT License.
-
----
-
-## ✉️ Contact
-
-**Gagan Deep, Akash Deep**
-Texas Tech University
-📧 [gdeep@ttu.edu](mailto:gdeep@ttu.edu)
-🌐 [deepaifinance.com](https://deepaifinance.com)
-
-> *“Search behavior may be noisy — but in chaos lies signal.”*
-
+**Disclaimer**: This software is for research purposes only. Not intended as financial advice.
